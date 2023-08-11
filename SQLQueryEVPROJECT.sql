@@ -81,7 +81,16 @@ Tesla_CTE2 AS (
     WHERE Make LIKE 'Tesla' AND STATE = 'WA'
 )
 
-SELECT tc.Make, tc.Model, ROUND((tc.TeslaModel * 100.0 / tc2.TeslaCount), 2) AS TeslaModelPercent
+SELECT tc.Make, tc.Model, TeslaModel, ROUND((tc.TeslaModel * 100.0 / tc2.TeslaCount), 2) AS TeslaModelPercent
 FROM Tesla_CTE tc
 CROSS JOIN Tesla_CTE2 tc2
 ORDER BY TeslaModelPercent DESC;
+
+
+
+----
+SELECT City, COUNT(VIN) AS NumberOfTeslas
+FROM EV_Population
+WHERE make = 'Tesla'
+GROUP BY City
+ORDER BY NumberOfTeslas DESC
